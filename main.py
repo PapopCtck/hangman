@@ -2,7 +2,8 @@ import random
 import math
 from artists import artists
 from country import country
-categories = ["Country","Artists"]
+from capitalcity import capitalcity
+categories = ["Country","Artists","CapitalCity"]
 
 
 
@@ -85,7 +86,7 @@ def Game(x):
                 print("")
             else: 
                 guessedChar.append(guessChar)
-                if guessChar in secret:
+                if guessChar in secret.casefold():
                     print("")
                     print("Correct!")
                     print("")
@@ -93,8 +94,11 @@ def Game(x):
                     score = math.ceil(score)
                     count = 1
                     for i in range(length):
-                        if secret[i] ==  guessChar:
-                            guessWord[i] = guessChar
+                        if secret[i].casefold() ==  guessChar:
+                            if i == 0:
+                                guessWord[i] = guessChar.upper()
+                            else:
+                                guessWord[i] = guessChar
                 else:
                     print("")
                     print("Try again!")
@@ -102,6 +106,7 @@ def Game(x):
                     count += 0.5
                     guessCount +=1
         if not '-' in guessWord:
+                    print("It's "+secret+"!") 
                     print("You won! Score : ",score)
                     break
     if guessCount == maxGuess:
